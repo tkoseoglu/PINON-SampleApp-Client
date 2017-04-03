@@ -14,8 +14,10 @@ import { PatientsComponent } from '../patients/patients.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'hospitals', component: HospitalsComponent },
+  { path: 'newHospital', component: HospitalComponent },
+  { path: 'editHospital/:id', component: HospitalComponent },
   { path: 'patients', component: PatientsComponent },
-  { path: 'hospital/:id', component: HospitalComponent },
+  
   { path: 'patient', component: PatientComponent },  
   { path: 'patient/:id', component: PatientComponent },  
   { path: 'home', component: HomeComponent },

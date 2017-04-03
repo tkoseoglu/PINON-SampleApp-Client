@@ -35,14 +35,7 @@ export class GeneralService {
       return this.globals.handleError(err)
     }).map(res => res.json());
   }
-
-  getHospitals() {
-    var url = `${environment.appServerUrl}/api/hospital/getall`;
-    return this.http.get(url).catch((err) => {
-      return this.globals.handleError(err)
-    }).map(res => res.json());
-  }
-
+  
   login(login: Login) {
     var url = `${environment.appServerUrl}/useraccount/signin`;
     return this.http

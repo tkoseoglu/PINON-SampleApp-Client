@@ -17,12 +17,14 @@ import { ErrorComponent } from './error/error.component';
 import { GlobalsService } from './globals.service';
 import { GeneralService } from './general.service';
 import { PatientService } from './patient.service';
+import { HospitalService } from './hospital.service';
 
-import { NgsmLoaderComponent } from 'tolga-ng2-semantic-ui/src/app';
+import { NgsmLoaderComponent, NgsmTablepagerComponent } from 'tolga-ng2-semantic-ui/src/app';
 import { RegisterComponent } from './register/register.component';
 import { LogoffComponent } from './logoff/logoff.component';
 import { HospitalsComponent } from './hospitals/hospitals.component';
 import { PatientsComponent } from './patients/patients.component';
+import { OrderByPipe } from './order-by.pipe';
 
 @NgModule({
   declarations: [
@@ -34,10 +36,12 @@ import { PatientsComponent } from './patients/patients.component';
     LoginComponent,
     ErrorComponent,
     NgsmLoaderComponent,
+    NgsmTablepagerComponent,
     RegisterComponent,
     LogoffComponent,
     HospitalsComponent,
-    PatientsComponent
+    PatientsComponent,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,7 @@ import { PatientsComponent } from './patients/patients.component';
     HttpModule,
     AppRouterModule
   ],
-  providers: [GlobalsService, GeneralService, PatientService],
+  providers: [GlobalsService, GeneralService, PatientService, HospitalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

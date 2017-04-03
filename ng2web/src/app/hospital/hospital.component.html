@@ -1,3 +1,27 @@
 <div class="ui container">
-    <h1>Hospital</h1>
+    <h1>{{title}}</h1>
+    <form [formGroup]="hospitalForm"
+        (ngSubmit)="save(hospitalForm.value)"
+        class="ui form"
+        novalidate>
+        <div class="field">
+            <div class="ui input">
+                <input type="text"
+                    formControlName="hospitalName"
+                    placeholder="Hospital Name"
+                    autofocus>
+            </div>
+        </div>
+        <br>
+        <div class="field">
+            <button type="submit"
+                [disabled]="!hospitalForm.valid || isBusy"
+                class="ui button blue">Save</button>
+            <a routerLink="/hospitals"
+                class="ui button">Cancel</a>
+        </div>
+        <div>
+            {{responseMessage}}
+        </div>
+    </form>
 </div>

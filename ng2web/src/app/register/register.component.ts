@@ -4,6 +4,7 @@ import { GeneralService } from '../general.service';
 import { GlobalsService } from '../globals.service';
 import { Register } from '../models/interface.register';
 import { Router } from '@angular/router';
+import { HospitalService } from '../hospital.service';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +21,7 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private globalsService: GlobalsService,
     private generalService: GeneralService,
+    private hospitalService: HospitalService,
     private router: Router) {
     this.validatePasswordConfirmation = this.validatePasswordConfirmation.bind(this);
   }
@@ -39,7 +41,7 @@ export class RegisterComponent implements OnInit {
   }
 
   getHospitals() {
-    this.generalService.getHospitals().subscribe(result => {
+    this.hospitalService.getHospitals().subscribe(result => {
       this.hospitals = result;
     });
   }

@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    var defaultEmail = "jsmith@gmail.com";
+    var defaultEmail = "jharsh@pinon.com";
     var defaultPwd = "123456";
     this.loginForm = this.formBuilder.group({
       email: [defaultEmail, Validators.required],

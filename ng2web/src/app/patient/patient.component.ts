@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PatientService } from '../patient.service';
 import { Patient } from '../models/patient';
 import { UserAccount } from '../models/userAccount';
-import { GeneralService } from '../general.service';
+import { HospitalService } from '../hospital.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -15,7 +15,7 @@ export class PatientComponent implements OnInit {
 
   constructor(private patientService: PatientService,
     private formBuilder: FormBuilder,
-    private generalService: GeneralService,
+    private hospitalService: HospitalService,
     private router: Router) { }
 
   hospitals = [];
@@ -27,7 +27,7 @@ export class PatientComponent implements OnInit {
   isBusy: boolean = false;
 
   getHospitals() {
-    this.generalService.getHospitals().subscribe(result => {
+    this.hospitalService.getHospitals().subscribe(result => {
       this.hospitals = result;
     });
   }

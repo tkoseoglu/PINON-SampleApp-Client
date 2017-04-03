@@ -1,3 +1,60 @@
 <div class="ui container">
     <h1>Hospitals</h1>
+    <ngsm-loader [showWhen]="isBusy && isFirstSearch"
+        [isInverted]="true"
+        message="Loading Hospitals..."></ngsm-loader>
+
+    <div class="ui two column grid">
+        <div class="left aligned column">
+            <div class="grouped fields">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <input type="text"
+                            placeholder="search hospitals"
+                            name="filterValue"
+                            (ngModelChange)="filterByHospitalName($event)"
+                            [(ngModel)]="filter.contactName" />
+                        <i class="building icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right aligned column">
+            <a routerLink="/newHospital"
+                class="ui button blue">
+                <i class="icon plus"></i> Add New</a>
+        </div>
+    </div>
+
+    <table class="ui striped compact table"
+        *ngIf="filteredHospitals.length > 0">
+        <thead>
+            <tr>
+                <th (click)="sortColumn = 'hospitalName'; predicate = !predicate"
+                    class="idosomething">Hospital Name</th>
+                <th (click)="sortColumn = 'numberOfPatients'; predicate = !predicate"
+                    class="idosomething">Patients Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let h of filteredHospitals|orderBy:[sortColumn,predicate]">
+                <td class="collapsing">
+                    {{h.hospitalName}}
+                </td>
+                <td>
+                    {{h.numberOfPatients}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="ui grid">
+        <div class="right aligned column">
+            <ngsm-tablepager [totalNumberOfRecords]="totalNumberOfRecords"
+                [selectedPageSize]="hospitalSearch.pageSize"
+                [selectedPage]="hospitalSearch.page"
+                (onPageSizeChange)="newPageSize($event)"
+                (onPageChange)="newPage($event)"></ngsm-tablepager>
+        </div>
+    </div>
 </div>
