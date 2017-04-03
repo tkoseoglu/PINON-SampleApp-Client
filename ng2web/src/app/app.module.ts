@@ -19,6 +19,9 @@ import { GeneralService } from './general.service';
 
 import { NgsmLoaderComponent } from 'tolga-ng2-semantic-ui/src/app';
 import { RegisterComponent } from './register/register.component';
+import { LogoffComponent } from './logoff/logoff.component';
+import { HospitalsComponent } from './hospitals/hospitals.component';
+import { PatientsComponent } from './patients/patients.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { RegisterComponent } from './register/register.component';
     LoginComponent,
     ErrorComponent,
     NgsmLoaderComponent,
-    RegisterComponent
+    RegisterComponent,
+    LogoffComponent,
+    HospitalsComponent,
+    PatientsComponent
   ],
   imports: [
     BrowserModule,

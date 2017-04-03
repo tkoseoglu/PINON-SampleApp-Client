@@ -22,6 +22,10 @@ export class GeneralService {
     this.subject.next(status);
   }
 
+  getLoginStatus(): Observable<string> {
+    return this.subject.asObservable();
+  }
+
   getTopNavigationMenu() {
     var url = `${environment.appServerUrl}/api/util/getmenu`;
     return this.http.get(url, {
@@ -32,7 +36,7 @@ export class GeneralService {
   }
 
   login(login: Login) {
-    var url = `${environment.appServerUrl}/useraccount/gettoken`;
+    var url = `${environment.appServerUrl}/useraccount/signin`;
     return this.http
       .post(url, login)
       .catch((err) => {
@@ -42,7 +46,7 @@ export class GeneralService {
   }
 
   logoff() {
-    var url = `${environment.appServerUrl}/useraccount/destroytoken`;
+    var url = `${environment.appServerUrl}/useraccount/signout`;
     console.log(url);
     return this.http
       .post(url, "")

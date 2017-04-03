@@ -17,7 +17,8 @@ export class GlobalsService {
     FirstName: "",
     LastName: "",
     Email: "",
-    AccessToken: ""
+    AccessToken: "",
+    Roles: ""
   };
 
   constructor(private router: Router) {

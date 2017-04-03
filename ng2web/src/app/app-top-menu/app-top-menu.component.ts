@@ -26,6 +26,13 @@ export class AppTopMenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.generalService.getLoginStatus().subscribe(result => {
+      console.log(`App Menu. Login Status changed to ${result}`);
+      if (result === "good")
+        this.getTabs();
+      else
+        this.tabs = [];
+    });
     this.getTabs();
   }
 

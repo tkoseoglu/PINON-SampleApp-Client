@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private globalsService: GlobalsService,
     private generalService: GeneralService,
-    private router: Router, ) { }
+    private router: Router) { }
 
   login(model: Login) {
     this.isBusy = true;
