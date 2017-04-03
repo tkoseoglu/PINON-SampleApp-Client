@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { GlobalsService } from './globals.service';
 import { Login } from './models/interface.login';
+import { Register } from './models/interface.register';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Subject } from 'rxjs/Subject';
@@ -35,10 +36,27 @@ export class GeneralService {
     }).map(res => res.json());
   }
 
+  getHospitals() {
+    var url = `${environment.appServerUrl}/api/hospital/getall`;
+    return this.http.get(url).catch((err) => {
+      return this.globals.handleError(err)
+    }).map(res => res.json());
+  }
+
   login(login: Login) {
     var url = `${environment.appServerUrl}/useraccount/signin`;
     return this.http
       .post(url, login)
+      .catch((err) => {
+        return this.globals.handleError(err)
+      })
+      .map(res => res.json());
+  }
+
+  register(register: Register) {
+    var url = `${environment.appServerUrl}/useraccount/register`;
+    return this.http
+      .post(url, register)
       .catch((err) => {
         return this.globals.handleError(err)
       })

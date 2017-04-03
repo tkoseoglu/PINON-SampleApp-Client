@@ -1,3 +1,76 @@
 <div class="ui container">
     <h1>Register as new User</h1>
+    <form [formGroup]="registrationForm"
+        (ngSubmit)="register(registrationForm.value)"
+        class="ui form"
+        novalidate>
+
+        <div class="field">
+            <div class="ui input">
+                <input type="text"
+                    formControlName="firstName"
+                    placeholder="First Name"
+                    autofocus>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui input">
+                <input type="text"
+                    formControlName="lastName"
+                    class="form-control"
+                    placeholder="Last Name">
+            </div>
+
+        </div>
+        <div class="field">
+            <div class="ui input">
+                <input type="email"
+                    formControlName="email"
+                    class="form-control"
+                    placeholder="Email">
+            </div>
+
+        </div>
+        <div class="field">
+            <div class="ui input">
+                <input type="password"
+                    formControlName="password"
+                    class="form-control"
+                    placeholder="Password (minimum of 6 characters required)">
+            </div>
+
+        </div>
+        <div class="field">
+            <input type="password"
+                formControlName="passwordConfirmation"
+                class="form-control"
+                placeholder="Confirm Password">
+            <div *ngIf="registrationForm.controls.passwordConfirmation.errors?.noMatch"
+                class="alert alert-danger alert-inx">
+                <i class="fa fa-exclamation-circle"
+                    title="Passwords must match"></i> Passwords must match
+            </div>
+        </div>
+        <div class="field">
+            <div>
+                <h4>Select your Hospital of choice</h4>
+            </div>
+            <select class="ui dropdown"
+                formControlName="hospitalId">
+                <option *ngFor="let h of hospitals" 
+                [(value)]="h.id">{{h.hospitalName}}</option>
+            </select>
+        </div>
+        <br>
+        <div class="field">
+            <button type="submit"
+                [disabled]="!registrationForm.valid || isBusy"
+                class="ui button blue">Register</button>
+            <a routerLink="/login"
+                class="ui button">Cancel</a>
+        </div>
+        <div>
+            {{responseMessage}}
+        </div>
+    </form>
 </div>

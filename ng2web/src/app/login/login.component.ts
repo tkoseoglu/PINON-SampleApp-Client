@@ -24,17 +24,20 @@ export class LoginComponent implements OnInit {
     this.isBusy = true;
     this.generalService.login(model).subscribe(result => {
       this.isBusy = false;
-      if (result.access_token === undefined) {       
+      if (result.access_token === undefined) {
         this.generalService.setLoginStatus("bad");
       }
       else {
         localStorage.setItem(this.globalsService.LOCALSTORAGE_ACCESSTOKEN_NAME, result.access_token);
         this.globalsService.currentUser = result.current_user;
         this.globalsService.currentUser.AccessToken = result.access_token;
-        localStorage.setItem(this.globalsService.LOCALSTORAGE_CURRENTUSER_NAME, JSON.stringify(this.globalsService.currentUser));        
+        localStorage.setItem(this.globalsService.LOCALSTORAGE_CURRENTUSER_NAME, JSON.stringify(this.globalsService.currentUser));
         //notify top menu to refresh
         this.generalService.setLoginStatus("good");
-        this.router.navigate(['/patients']);
+        if (result.current_user.Roles.indexOf("Admin") >= 0)
+          this.router.navigate(['/patients']);
+        else
+          this.router.navigate(['/patient']);
       }
     }, error => {
       this.isBusy = false;
@@ -43,8 +46,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    var defaultEmail = "";
-    var defaultPwd = "";
+    var defaultEmail = "jsmith@gmail.com";
+    var defaultPwd = "123456";
     this.loginForm = this.formBuilder.group({
       email: [defaultEmail, Validators.required],
       password: [defaultPwd, Validators.required]

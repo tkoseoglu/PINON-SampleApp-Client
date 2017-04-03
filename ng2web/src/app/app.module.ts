@@ -16,6 +16,7 @@ import { ErrorComponent } from './error/error.component';
 
 import { GlobalsService } from './globals.service';
 import { GeneralService } from './general.service';
+import { PatientService } from './patient.service';
 
 import { NgsmLoaderComponent } from 'tolga-ng2-semantic-ui/src/app';
 import { RegisterComponent } from './register/register.component';
@@ -45,7 +46,7 @@ import { PatientsComponent } from './patients/patients.component';
     HttpModule,
     AppRouterModule
   ],
-  providers: [GlobalsService, GeneralService],
+  providers: [GlobalsService, GeneralService, PatientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

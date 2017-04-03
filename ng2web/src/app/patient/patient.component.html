@@ -1,3 +1,84 @@
 <div class="ui container">
-    <h1>Patient</h1>
+    <h1>Patient Portal</h1>
+    <div class="ui card">
+        <div class="image">
+            <img src="/assets/kristy.png">
+        </div>
+        <div class="content">
+            <a class="header"
+                *ngIf="userAccount">
+                {{userAccount.firstName}} {{userAccount.lastName}}
+            </a>
+            <div class="meta">
+                <span class="date">Member since 2017</span>
+            </div>
+            <div class="description">
+                <h4>Patient Information</h4>
+                <ngsm-loader [showWhen]="isBusy"
+                    [isInverted]="true"
+                    message="Loading Patient Information..."></ngsm-loader>
+                <form [formGroup]="patientForm"
+                    (ngSubmit)="savePatient(patientForm.value)"
+                    class="ui form"
+                    novalidate>
+                    <div class="field">
+                        <div class="ui input">
+                            <input type="text"
+                                formControlName="eyeColor"
+                                placeholder="Eye Color"
+                                autofocus>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui input">
+                            <input type="text"
+                                formControlName="hairColor"
+                                class="form-control"
+                                placeholder="Hair Color">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui input">
+                            <input type="text"
+                                formControlName="height"
+                                class="form-control"
+                                placeholder="Height">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui input">
+                            <input type="text"
+                                formControlName="weight"
+                                class="form-control"
+                                placeholder="Weight">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <select class="ui dropdown"
+                            formControlName="hospitalId">
+                            <option *ngFor="let h of hospitals" 
+                            [(value)]="h.id">{{h.hospitalName}}</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="field">
+                        <button type="submit"
+                            [disabled]="!patientForm.valid || isBusy"
+                            class="ui button blue">Save</button>
+                    </div>
+                    <div>
+                        {{responseMessage}}
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="extra content">
+            <!--<a>
+                <i class="user icon"></i> 22 Friends
+            </a>-->
+            <button type="button"
+                (click)="deletePatient()"
+                class="ui button red">Delete</button>
+        </div>
+    </div>
 </div>
