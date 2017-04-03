@@ -1,0 +1,45 @@
+<div class="ui menu pointing fixed inverted">
+    <div class="ui container">
+        <div class="header item">
+            Pinon | Sample App
+        </div>
+        <div *ngFor="let tab of tabs">
+            <div class="ui dropdown simple item"
+                *ngIf="tab.subTabs !== null">
+                {{tab.name}}
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a *ngFor="let subTab of tab.subTabs"
+                        routerLink="{{subTab.route}}"
+                        routerLinkActive="active"
+                        class="item">{{subTab.name}}
+               </a>
+                </div>
+            </div>
+            <a *ngIf="tab.subTabs === null"
+                class="item"
+                routerLink="{{tab.route}}"
+                routerLinkActive="active">
+            {{tab.name}}</a>
+        </div>
+        <div class="menu right">
+            <a routerLink="/login"
+                *ngIf="!globalsService.currentUser.AccessToken"
+                class="item">
+            Login
+         </a>
+            <div class="ui dropdown item simple"
+                *ngIf="globalsService.currentUser.AccessToken">
+                Welcome, {{globalsService.currentUser.FirstName}}
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a routerLink="/accountDetails"
+                        class="item">Account Details</a>
+                    <div class="divider"></div>
+                    <a routerLink="/logoff"
+                        class="item">Logoff</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

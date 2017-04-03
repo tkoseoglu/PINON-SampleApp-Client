@@ -1,0 +1,47 @@
+<div class="ui container">
+    <ngsm-loader [showWhen]="isBusy"
+        [isInverted]="true"
+        message="Signing in"></ngsm-loader>
+
+    <div class="ui two column middle aligned very relaxed stackable grid container">
+        <div class="column">
+            <form [formGroup]="loginForm"
+                (ngSubmit)="login(loginForm.value)"
+                class="ui form"
+                novalidate>
+                <h1>Pinon Sample App | Sign In</h1>
+                <h4>Use local account to sign in</h4>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text"
+                            formControlName="email"
+                            placeholder="Email address"
+                            autofocus>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password"
+                            formControlName="password"
+                            placeholder="Password">
+                    </div>
+                </div>
+                <div class="field">
+                    <button type="submit"
+                        [disabled]="!loginForm.valid || isBusy"
+                        class="ui button"> Sign in
+                  </button>
+                </div>
+                <br>
+                <div class="field">
+                    <a routerLink="/register">Register as new user?</a>
+                </div>
+                <div class="field">
+                    <a routerLink="#/resetPassword">Forgot password?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
