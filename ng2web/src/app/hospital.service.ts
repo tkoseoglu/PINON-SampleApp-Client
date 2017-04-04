@@ -20,6 +20,16 @@ export class HospitalService {
     }).map(res => res.json());
   }
 
+  getHospitalDetails(id) {
+    var url = `${environment.appServerUrl}/api/hospital/gethospitaldetails/${id}`;
+    console.log(url);
+    return this.http.get(url, {
+      headers: this.globals.setHeaders()
+    }).catch((err) => {
+      return this.globals.handleError(err)
+    }).map(res => res.json());
+  }
+
   save(hospital: HospitalRecord) {
     var url = `${environment.appServerUrl}/api/hospital/SaveHospital`;
     return this.http.post(url, hospital, {
@@ -38,4 +48,5 @@ export class HospitalService {
       return this.globals.handleError(err)
     }).map(res => res.json());
   }
+  
 }

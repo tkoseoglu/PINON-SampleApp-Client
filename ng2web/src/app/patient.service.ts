@@ -9,6 +9,7 @@ import { Patient } from './models/patient';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Subject } from 'rxjs/Subject';
+import { PatientSearch } from './models/search.patient';
 
 @Injectable()
 export class PatientService {
@@ -36,6 +37,16 @@ export class PatientService {
   delete(patient: Patient) {
     var url = `${environment.appServerUrl}/api/patient/DeletePatient`;
     return this.http.post(url, patient, {
+      headers: this.globals.setHeaders()
+    }).catch((err) => {
+      return this.globals.handleError(err)
+    }).map(res => res.json());
+  }
+
+  searchPatients(query: PatientSearch) {
+    var url = `${environment.appServerUrl}/api/patient/search`;
+    console.log(query);
+    return this.http.post(url, query, {
       headers: this.globals.setHeaders()
     }).catch((err) => {
       return this.globals.handleError(err)

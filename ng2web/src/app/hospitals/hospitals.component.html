@@ -1,8 +1,5 @@
 <div class="ui container">
     <h1>Hospitals</h1>
-    <ngsm-loader [showWhen]="isBusy && isFirstSearch"
-        [isInverted]="true"
-        message="Loading Hospitals..."></ngsm-loader>
 
     <div class="ui two column grid">
         <div class="left aligned column">
@@ -28,6 +25,10 @@
 
     <table class="ui striped compact table"
         *ngIf="filteredHospitals.length > 0">
+        <ngsm-loader [showWhen]="isBusy && isFirstSearch"
+            [isInverted]="true"
+            message="Loading Hospitals..."></ngsm-loader>
+
         <thead>
             <tr>
                 <th (click)="sortColumn = 'hospitalName'; predicate = !predicate"
@@ -39,10 +40,10 @@
         <tbody>
             <tr *ngFor="let h of filteredHospitals|orderBy:[sortColumn,predicate]">
                 <td class="collapsing">
-                    {{h.hospitalName}}
+                    <a routerLink="/editHospital/{{h.id}}">{{h.hospitalName}}</a>
                 </td>
                 <td>
-                    {{h.numberOfPatients}}
+                    <a routerLink="/hospitalPatients/{{h.id}}">{{h.numberOfPatients}}</a>
                 </td>
             </tr>
         </tbody>

@@ -24,4 +24,48 @@
             {{responseMessage}}
         </div>
     </form>
+    <br>
+    <div *ngIf="hospital && hospital.patients.length > 0">
+        <h2>Patients</h2>
+        <table class="ui striped compact table">
+            <thead>
+                <tr>
+                    <th (click)="sortColumn = 'firstName'; predicate = !predicate"
+                        class="idosomething">First Name</th>
+                    <th (click)="sortColumn = 'lastName'; predicate = !predicate"
+                        class="idosomething">Last Name</th>
+                    <th (click)="sortColumn = 'weight'; predicate = !predicate"
+                        class="idosomething">Weight</th>
+                    <th (click)="sortColumn = 'height'; predicate = !predicate"
+                        class="idosomething">Height</th>
+                    <th (click)="sortColumn = 'eyeColor'; predicate = !predicate"
+                        class="idosomething">Eye Color</th>
+                    <th (click)="sortColumn = 'hairColor'; predicate = !predicate"
+                        class="idosomething">Hair Color</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of hospital.patients">
+                    <td>
+                        {{p.firstName}}
+                    </td>
+                    <td>
+                        {{p.lastName}}
+                    </td>
+                    <td>
+                        {{p.weight}}
+                    </td>
+                    <td>
+                        {{p.height}}
+                    </td>
+                    <td>
+                        {{p.eyeColor}}
+                    </td>
+                    <td>
+                        {{p.hairColor}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

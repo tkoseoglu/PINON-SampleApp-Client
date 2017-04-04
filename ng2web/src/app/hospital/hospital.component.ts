@@ -16,12 +16,24 @@ export class HospitalComponent implements OnInit {
   hospitalForm: FormGroup;
   isBusy: boolean = false;
   responseMessage: string = "";
+  hospital: HospitalRecord;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
     private hospitalService: HospitalService) { }
 
+
+  getDetails(id) {
+    this.hospitalService.getHospitalDetails(id).subscribe(result => {
+      this.hospital = result;
+
+      this.hospitalForm.setValue({
+        id: result.id,
+        hospitalName: result.hospitalName
+      });
+    });
+  }
 
   save(model: HospitalRecord) {
     this.isBusy = true;
@@ -31,7 +43,7 @@ export class HospitalComponent implements OnInit {
       if (result.HasError) {
         this.responseMessage = result.Message;
       }
-      else {        
+      else {
         this.router.navigate(['/hospitals']);
       }
     }, error => {
@@ -45,6 +57,7 @@ export class HospitalComponent implements OnInit {
         let id = +params['id'];
         this.title = "Edit Hospital";
         this.isEditMode = true;
+        this.getDetails(id);
       }
     });
 
