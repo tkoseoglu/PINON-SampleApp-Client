@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HospitalService } from '../hospital.service';
 import { HospitalRecord } from '../models/hospitalRecord';
+import { AppMessagingModule } from '../app-messaging/app-messaging.module';
 
 @Component({
   selector: 'app-hospital',
@@ -21,6 +22,7 @@ export class HospitalComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
+    private appMessenger: AppMessagingModule,
     private hospitalService: HospitalService) { }
 
 
@@ -42,8 +44,10 @@ export class HospitalComponent implements OnInit {
       this.isBusy = false;
       if (result.HasError) {
         this.responseMessage = result.Message;
+        this.appMessenger.displayError("Error!", result.Message);
       }
       else {
+        this.appMessenger.displaySuccess("Success!", "Changes saved successfully");
         this.router.navigate(['/hospitals']);
       }
     }, error => {

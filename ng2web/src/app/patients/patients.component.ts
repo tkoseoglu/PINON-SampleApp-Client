@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { Patient } from '../models/patient';
 import { PatientFilter } from '../models/filter.patient';
 import { PatientSearch } from '../models/search.patient';
+import { AppMessagingModule } from '../app-messaging/app-messaging.module';
 
 @Component({
   selector: 'app-patients',
@@ -28,7 +29,8 @@ export class PatientsComponent implements OnInit {
   predicate: boolean = true;
   sortColumn: string = "firstName";
 
-  constructor(private patientService: PatientService) { }
+  constructor(private patientService: PatientService,
+    private appMessenger: AppMessagingModule) { }
 
   getPatients() {
     this.isBusy = true;
@@ -43,11 +45,12 @@ export class PatientsComponent implements OnInit {
           rawPatient.hospital,
           rawPatient.firstName,
           rawPatient.lastName,
+          rawPatient.email,
           rawPatient.hairColor,
           rawPatient.eyeColor,
           rawPatient.height,
           rawPatient.weight,
-          rawPatient.userAccountId));
+          rawPatient.userId));
       });
 
       this.applyFilter();
@@ -78,6 +81,20 @@ export class PatientsComponent implements OnInit {
   newPage(page: number) {
     this.patientSearch.page = page;
     this.getPatients();
+  }
+
+  deletePatient(patient: Patient) {
+    if (confirm(`Ok to delete patient ${patient.firstName} ${patient.lastName}?`)) {
+      this.isBusy = true;
+      this.patientService.adminDelete(patient.userId).subscribe(result => {
+        this.isBusy = false;
+        this.appMessenger.displaySuccess("Success!", "Patient removed successfully");
+        this.getPatients();
+      }, error => {
+        this.isBusy = false;
+        this.appMessenger.displayError("Error!", "");
+      });
+    }
   }
 
   ngOnInit() {

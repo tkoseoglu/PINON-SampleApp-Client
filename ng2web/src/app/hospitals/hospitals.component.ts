@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { HospitalRecord } from '../models/hospitalRecord';
 import { HospitalFilter } from '../models/filter.hospital';
 import { HospitalSearch } from '../models/search.hospital';
+import { AppMessagingModule } from '../app-messaging/app-messaging.module';
 
 @Component({
   selector: 'app-hospitals',
@@ -28,9 +29,10 @@ export class HospitalsComponent implements OnInit {
   predicate: boolean = true;
   sortColumn: string = "hospitalName";
 
-  constructor(private hospitalService: HospitalService) { }
+  constructor(private hospitalService: HospitalService,
+    private appMessenger: AppMessagingModule) { }
 
-  getHospitals() {    
+  getHospitals() {
     this.isBusy = true;
     this.hospitalService.searchHospitals(this.hospitalSearch).subscribe(result => {
       this.isBusy = false;
@@ -68,6 +70,20 @@ export class HospitalsComponent implements OnInit {
   newPage(page: number) {
     this.hospitalSearch.page = page;
     this.getHospitals();
+  }
+
+  deleteHospital(hospital: HospitalRecord) {
+    if (confirm(`Ok to delete hospital ${hospital.hospitalName}?`)) {
+      this.isBusy = true;
+      this.hospitalService.adminDelete(hospital.id).subscribe(result => {
+        this.isBusy = false;
+        this.appMessenger.displaySuccess("Success!", "Hospital removed successfully");
+        this.getHospitals();
+      }, error => {
+        this.isBusy = false;
+        this.appMessenger.displayError("Error!", "");
+      });
+    }
   }
 
   ngOnInit() {

@@ -9,6 +9,7 @@
                         <input type="text"
                             placeholder="search hospitals"
                             name="filterValue"
+                            maxlength="100"
                             (ngModelChange)="filterByHospitalName($event)"
                             [(ngModel)]="filter.contactName" />
                         <i class="building icon"></i>
@@ -23,31 +24,43 @@
         </div>
     </div>
 
-    <table class="ui striped compact table"
-        *ngIf="filteredHospitals.length > 0">
+    <div style="min-height:300px">
         <ngsm-loader [showWhen]="isBusy && isFirstSearch"
             [isInverted]="true"
             message="Loading Hospitals..."></ngsm-loader>
+        <table class="ui striped selectable compact table"
+            *ngIf="filteredHospitals.length > 0">
+            <thead>
+                <tr>
+                    <th (click)="sortColumn = 'hospitalName'; predicate = !predicate"
+                        class="idosomething">Hospital Name</th>
+                    <th (click)="sortColumn = 'numberOfPatients'; predicate = !predicate"
+                        class="idosomething">Patients Count</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let h of filteredHospitals|orderBy:[sortColumn,predicate]">
+                    <td class="collapsing">
+                        <a routerLink="/editHospital/{{h.id}}">{{h.hospitalName}}</a>
+                    </td>
+                    <td>
+                        <a routerLink="/hospitalPatients/{{h.id}}">{{h.numberOfPatients}}</a>
+                    </td>
+                    <td>
+                        <div class="right aligned column">
+                            <button class="mini ui button red right aligned"
+                                (click)="deleteHospital(h)"
+                                title="delete hospital">
+                        <i class="icon trash"></i> Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <thead>
-            <tr>
-                <th (click)="sortColumn = 'hospitalName'; predicate = !predicate"
-                    class="idosomething">Hospital Name</th>
-                <th (click)="sortColumn = 'numberOfPatients'; predicate = !predicate"
-                    class="idosomething">Patients Count</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let h of filteredHospitals|orderBy:[sortColumn,predicate]">
-                <td class="collapsing">
-                    <a routerLink="/editHospital/{{h.id}}">{{h.hospitalName}}</a>
-                </td>
-                <td>
-                    <a routerLink="/hospitalPatients/{{h.id}}">{{h.numberOfPatients}}</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <br>
 
     <div class="ui grid">
         <div class="right aligned column">

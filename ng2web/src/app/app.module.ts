@@ -8,6 +8,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppTopMenuComponent } from './app-top-menu/app-top-menu.component';
 import { AppRouterModule } from './app-router/app-router.module';
+import { AppMessagingModule } from './app-messaging/app-messaging.module';
 import { HospitalComponent } from './hospital/hospital.component';
 import { PatientComponent } from './patient/patient.component';
 import { HomeComponent } from './home/home.component';
@@ -25,6 +26,9 @@ import { LogoffComponent } from './logoff/logoff.component';
 import { HospitalsComponent } from './hospitals/hospitals.component';
 import { PatientsComponent } from './patients/patients.component';
 import { OrderByPipe } from './order-by.pipe';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+
+import { ToastrModule } from 'toastr-ng2';
 
 @NgModule({
   declarations: [
@@ -41,14 +45,17 @@ import { OrderByPipe } from './order-by.pipe';
     LogoffComponent,
     HospitalsComponent,
     PatientsComponent,
-    OrderByPipe
+    OrderByPipe,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRouterModule
+    AppRouterModule,
+    AppMessagingModule,
+    ToastrModule.forRoot()
   ],
   providers: [GlobalsService, GeneralService, PatientService, HospitalService],
   bootstrap: [AppComponent]

@@ -24,6 +24,7 @@ export class LogoffComponent implements OnInit {
       AccessToken: "",
       Roles: ""
     };
+    localStorage.setItem(this.globalsService.LOCALSTORAGE_CURRENTUSER_NAME, JSON.stringify(this.globalsService.currentUser));
     this.generalService.setLoginStatus("bad");
     this.generalService.logoff().subscribe(result => {
       this.router.navigate(['/home']);

@@ -16,7 +16,8 @@ export class RegisterComponent implements OnInit {
   isBusy: boolean = false;
   registrationForm: FormGroup;
   hospitals = [];
-  responseMessage: string = "";
+  responseSuccessMessage: string = "";
+  responseErrorMessage: string = "";
 
   constructor(private formBuilder: FormBuilder,
     private globalsService: GlobalsService,
@@ -48,15 +49,14 @@ export class RegisterComponent implements OnInit {
 
   register(model: Register) {
     this.isBusy = true;
-    this.responseMessage = "";
+    this.responseSuccessMessage = "";
     this.generalService.register(model).subscribe(result => {
       this.isBusy = false;
       if (result.HasError) {
-        this.responseMessage = result.Message;
+        this.responseErrorMessage = result.Message;
       }
       else {
-        this.responseMessage = "Success! You've registered successfully."
-        this.router.navigate(['/patient']);
+        this.responseSuccessMessage = "Success! You've registered successfully."
       }
     }, error => {
       this.isBusy = false;

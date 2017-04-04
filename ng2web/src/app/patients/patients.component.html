@@ -9,74 +9,85 @@
                         <input type="text"
                             placeholder="search patients"
                             name="filterValue"
+                            maxlength="50"
                             (ngModelChange)="filterByPatientName($event)"
                             [(ngModel)]="filter.name" />
-                        <i class="building icon"></i>
+                        <i class="users icon"></i>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="right aligned column">
-            <a routerLink="/newPatient"
-                class="ui button blue">
-                <i class="icon plus"></i> Add New</a>
-        </div>
     </div>
 
-    <table class="ui striped compact table"
-        *ngIf="filteredPatients && filteredPatients.length > 0">
+    <div style="min-height:300px">
         <ngsm-loader [showWhen]="isBusy && isFirstSearch"
             [isInverted]="true"
             message="Loading Patients..."></ngsm-loader>
-        <thead>
-            <tr>
-                <th (click)="sortColumn = 'firstName'; predicate = !predicate"
-                    class="idosomething">First Name</th>
-                <th (click)="sortColumn = 'lastName'; predicate = !predicate"
-                    class="idosomething">Last Name</th>
-                <th (click)="sortColumn = 'weight'; predicate = !predicate"
-                    class="idosomething">Weight</th>
-                <th (click)="sortColumn = 'height'; predicate = !predicate"
-                    class="idosomething">Height</th>
-                <th (click)="sortColumn = 'eyeColor'; predicate = !predicate"
-                    class="idosomething">Eye Color</th>
-                <th (click)="sortColumn = 'hairColor'; predicate = !predicate"
-                    class="idosomething">Hair Color</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let p of filteredPatients|orderBy:[sortColumn,predicate]">
-                <td>
-                    <a routerLink="/editPatient/{{p.id}}"
-                        title="edit patient">
-                        {{p.firstName}}</a>
-                </td>
-                <td>
-                    {{p.lastName}}
-                </td>
-                <td>
-                    {{p.weight}}
-                </td>
-                <td>
-                    {{p.height}}
-                </td>
-                <td>
-                    {{p.eyeColor}}
-                </td>
-                <td>
-                    {{p.hairColor}}
-                </td>
-                <td>
-                    <div class="right aligned column">
-                        <button class="mini ui button red right aligned"
-                            title="delete patient">
+        <table class="ui striped compact table"
+            *ngIf="filteredPatients && filteredPatients.length > 0">
+
+            <thead>
+                <tr>
+                    <th (click)="sortColumn = 'firstName'; predicate = !predicate"
+                        class="idosomething">First Name</th>
+                    <th (click)="sortColumn = 'lastName'; predicate = !predicate"
+                        class="idosomething">Last Name</th>
+                    <th (click)="sortColumn = 'email'; predicate = !predicate"
+                        class="idosomething">Email</th>
+                    <th (click)="sortColumn = 'hospital'; predicate = !predicate"
+                        class="idosomething">Hospital</th>
+                    <th (click)="sortColumn = 'weight'; predicate = !predicate"
+                        class="idosomething">Weight</th>
+                    <th (click)="sortColumn = 'height'; predicate = !predicate"
+                        class="idosomething">Height</th>
+                    <th (click)="sortColumn = 'eyeColor'; predicate = !predicate"
+                        class="idosomething">Eye Color</th>
+                    <th (click)="sortColumn = 'hairColor'; predicate = !predicate"
+                        class="idosomething">Hair Color</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of filteredPatients|orderBy:[sortColumn,predicate]">
+                    <td>
+                        {{p.firstName}}
+                    </td>
+                    <td>
+                        {{p.lastName}}
+                    </td>
+                    <td>
+                        <a href="mailto:{{p.email}}">{{p.email}}</a>
+                    </td>
+                    <td>
+                        <a routerLink="/editHospital/{{p.hospital.id}}"
+                            title="edit hospital">{{p.hospital.hospitalName}}</a>
+                    </td>
+                    <td>
+                        {{p.weight}}
+                    </td>
+                    <td>
+                        {{p.height}}
+                    </td>
+                    <td>
+                        {{p.eyeColor}}
+                    </td>
+                    <td>
+                        {{p.hairColor}}
+                    </td>
+                    <td>
+                        <div class="right aligned column">
+                            <button class="mini ui button red right aligned"
+                                (click)="deletePatient(p)"
+                                title="delete patient">
                         <i class="icon trash"></i> Delete</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
 
     <div class="ui grid">
         <div class="right aligned column">

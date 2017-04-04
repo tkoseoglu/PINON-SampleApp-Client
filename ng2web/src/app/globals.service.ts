@@ -35,9 +35,14 @@ export class GlobalsService {
   }
 
   handleError(error: any): Promise<any> {
-    console.error('Status', error.status);
-    if (error.status === 401 || error.status === 403) {
-      this.router.navigate(['/login']);
+    console.error('Status', error);
+    if (error.status === 401 || error.status === 403 || error.status === 404) {
+      if (error.statusText === "Missing Jwt Token" || error.statusText === "Not Found") {
+        this.router.navigate(['/login']);
+      }
+      else if (error.statusText === "Unauthorized") {
+        this.router.navigate(['/accessDenied']);
+      }
     }
     else if (error.status === 0) {
       this.router.navigate(['/error']);

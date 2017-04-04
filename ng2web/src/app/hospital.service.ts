@@ -39,6 +39,16 @@ export class HospitalService {
     }).map(res => res.json());
   }
 
+  adminDelete(id: number) {
+    var url = `${environment.appServerUrl}/api/hospital/DeleteHospital/${id}`;
+    console.log(url);
+    return this.http.get(url, {
+      headers: this.globals.setHeaders()
+    }).catch((err) => {
+      return this.globals.handleError(err)
+    }).map(res => res.json());
+  }
+
   searchHospitals(query: HospitalSearch) {
     var url = `${environment.appServerUrl}/api/hospital/search`;
     console.log(query);
@@ -48,5 +58,5 @@ export class HospitalService {
       return this.globals.handleError(err)
     }).map(res => res.json());
   }
-  
+
 }

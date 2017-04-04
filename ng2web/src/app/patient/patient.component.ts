@@ -5,6 +5,7 @@ import { UserAccount } from '../models/userAccount';
 import { HospitalService } from '../hospital.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AppMessagingModule } from '../app-messaging/app-messaging.module';
 
 @Component({
   selector: 'app-patient',
@@ -16,6 +17,7 @@ export class PatientComponent implements OnInit {
   constructor(private patientService: PatientService,
     private formBuilder: FormBuilder,
     private hospitalService: HospitalService,
+    private appMessenger: AppMessagingModule,
     private router: Router) { }
 
   hospitals = [];
@@ -36,9 +38,11 @@ export class PatientComponent implements OnInit {
     this.isBusy = true;
     this.patientService.save(patient).subscribe(result => {
       this.isBusy = false;
+      this.appMessenger.displaySuccess("Success!", `Changes saved successfully`);
       this.getDetails();
     }, error => {
       this.isBusy = false;
+      this.appMessenger.displayError("Error!", `Failed to save changes, ${error}`);
     });
   }
 

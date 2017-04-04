@@ -10,6 +10,7 @@ import { RegisterComponent } from '../register/register.component';
 import { LogoffComponent } from '../logoff/logoff.component';
 import { HospitalsComponent } from '../hospitals/hospitals.component';
 import { PatientsComponent } from '../patients/patients.component';
+import { UnauthorizedComponent } from '../unauthorized/unauthorized.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'error', component: ErrorComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'logoff', component: LogoffComponent }
+  { path: 'logoff', component: LogoffComponent },
+  { path: 'accessDenied', component: UnauthorizedComponent }
 ];
 
 @NgModule({

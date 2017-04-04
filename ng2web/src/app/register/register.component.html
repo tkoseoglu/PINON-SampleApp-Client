@@ -1,15 +1,19 @@
 <div class="ui container">
     <h1>Register as new User</h1>
+    <ngsm-loader [showWhen]="isBusy"
+        [isInverted]="true"
+        message="Is Busy..."></ngsm-loader>
     <form [formGroup]="registrationForm"
         (ngSubmit)="register(registrationForm.value)"
         class="ui form"
+        *ngIf="!responseSuccessMessage"
         novalidate>
-
         <div class="field">
             <div class="ui input">
                 <input type="text"
                     formControlName="firstName"
                     placeholder="First Name"
+                    maxlength="50"
                     autofocus>
             </div>
         </div>
@@ -17,6 +21,7 @@
             <div class="ui input">
                 <input type="text"
                     formControlName="lastName"
+                    maxlength="150"
                     class="form-control"
                     placeholder="Last Name">
             </div>
@@ -26,6 +31,7 @@
             <div class="ui input">
                 <input type="email"
                     formControlName="email"
+                    maxlength="100"
                     class="form-control"
                     placeholder="Email">
             </div>
@@ -36,6 +42,7 @@
                 <input type="password"
                     formControlName="password"
                     class="form-control"
+                    maxlength="50"
                     placeholder="Password (minimum of 6 characters required)">
             </div>
 
@@ -43,6 +50,7 @@
         <div class="field">
             <input type="password"
                 formControlName="passwordConfirmation"
+                maxlength="50"
                 class="form-control"
                 placeholder="Confirm Password">
             <div *ngIf="registrationForm.controls.passwordConfirmation.errors?.noMatch"
@@ -69,8 +77,11 @@
             <a routerLink="/login"
                 class="ui button">Cancel</a>
         </div>
-        <div>
-            {{responseMessage}}
+        <div *ngIf="responseErrorMessage">
+            {{responseErrorMessage}}
         </div>
     </form>
+    <h2 *ngIf="responseSuccessMessage">
+        We have sent a confirmation message to you, so please check your e-mail to complete the registration process.
+    </h2>
 </div>

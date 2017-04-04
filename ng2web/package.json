@@ -26,6 +26,7 @@
     "rxjs": "^5.1.0",
     "semantic-ui": "^2.2.10",
     "semantic-ui-calendar": "0.0.7",
+    "toastr-ng2": "^4.1.1",
     "tolga-ng2-semantic-ui": "^1.0.5",
     "zone.js": "^0.7.6"
   },
