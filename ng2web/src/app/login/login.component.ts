@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
 
   login(model: Login) {
     this.isBusy = true;
+    model.hospitalId = this.globalsService.hospitalId;
     this.generalService.login(model).subscribe(result => {
       this.isBusy = false;
       if (result.access_token === undefined || result.HasError) {
@@ -38,8 +39,9 @@ export class LoginComponent implements OnInit {
         //notify top menu to refresh
         this.generalService.setLoginStatus("good");
         this.appMessenger.displaySuccess("Success!", "You are now logged on");
-        if (result.current_user.Roles.indexOf("Admin") >= 0)
+        if (result.current_user.Roles.indexOf("Admin") >= 0) {          
           this.router.navigate(['/patients']);
+        }
         else
           this.router.navigate(['/patient']);
       }

@@ -50,6 +50,9 @@ export class RegisterComponent implements OnInit {
   register(model: Register) {
     this.isBusy = true;
     this.responseSuccessMessage = "";
+
+    model.hospitalId = this.globalsService.hospitalId;
+
     this.generalService.register(model).subscribe(result => {
       this.isBusy = false;
       if (result.HasError) {
@@ -72,8 +75,7 @@ export class RegisterComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-      passwordConfirmation: ['', Validators.compose([Validators.required, this.validatePasswordConfirmation])],
-      hospitalId: ['', Validators.required],
+      passwordConfirmation: ['', Validators.compose([Validators.required, this.validatePasswordConfirmation])]
     });
 
 

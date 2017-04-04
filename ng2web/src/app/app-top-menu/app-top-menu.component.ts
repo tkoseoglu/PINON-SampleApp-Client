@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from '../globals.service';
 import { GeneralService } from '../general.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-menu',
@@ -13,7 +14,8 @@ export class AppTopMenuComponent implements OnInit {
   tabs: any = [];
 
   constructor(private globalsService: GlobalsService,
-    private generalService: GeneralService) { }
+    private generalService: GeneralService,
+    private router: Router) { }
 
   getTabs() {
     this.isBusyGettingTransactions = true;

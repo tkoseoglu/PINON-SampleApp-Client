@@ -9,7 +9,7 @@
                 (ngSubmit)="login(loginForm.value)"
                 class="ui form"
                 novalidate>
-                <h1>Pinon Sample App | Sign In</h1>
+                <h1>Sign In</h1>
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="user icon"></i>
@@ -36,7 +36,8 @@
                   </button>
                 </div>
                 <br>
-                <div class="field">
+                <div class="field"
+                    *ngIf="!globalsService.isAdminPortal">
                     <a routerLink="/register">Register as new user?</a>
                 </div>
             </form>

@@ -2,13 +2,26 @@
     <br>
     <div class="ui text container">
         <h1 class="ui inverted header">
-            Welcome to the Pinon Sample App
+            Welcome to {{globalsService.hospitalName}}
         </h1>
         <h2>Click the button below to login.</h2>
         <a routerLink="/login"
+            *ngIf="!globalsService.isAdminPortal"
             class="ui huge primary button">
-         Login
-         <i class="right arrow icon"></i>
-      </a>
+            Patient Login
+            <i class="right arrow icon"></i>
+        </a>
+        <a href="http://pinonadminportal.azurewebsites.net"
+            *ngIf="!globalsService.isAdminPortal"
+            class="ui huge primary button">
+            Administrator Login
+            <i class="right arrow icon"></i>
+        </a>
+        <a routerLink="/login"
+            *ngIf="globalsService.isAdminPortal"
+            class="ui huge primary button">
+           Administrator Login
+            <i class="right arrow icon"></i>
+        </a>
     </div>
 </div>
